@@ -1,0 +1,20 @@
+{
+  "name": "template_game_server",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "uuid": "^2.0.1",
+    "winston": "^2.1.1",
+    "winston-daily-rotate-file": "^1.0.1",
+    "ws": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "run_tests.sh",
+    "start": "node src/app.js"
+  },
+  "author": "Delyan Dobrev",
+  "license": "ISC",
+  "description": "A template game server."
+}

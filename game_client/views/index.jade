@@ -1,0 +1,26 @@
+extends layout
+
+append scripts
+    script(type='text/javascript', src='js/clock.js')
+    script(type='text/javascript', src='js/math_constants.js')
+    script(type='text/javascript', src='js/controls.js')
+    script(type='text/javascript', src='js/labyrinth.js')
+    script(type='text/javascript', src='js/websock.js')
+    script(type='text/javascript', src='js/pointer_lock.js')
+    script(type='text/javascript', src='js/main.js')
+
+append content
+    div(id="blocker")
+        div(id="instructions")
+            span(style="font-size:40px")
+                | Click to play
+            br
+            | (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+            br
+            div(id="field-wrapper")
+                | Host ip:
+                input(type="text" id="host-name")
+                |  User name:
+                input(type="text" id="user-name")
+            br
+            div(id="error-box")
