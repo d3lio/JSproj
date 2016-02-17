@@ -53,7 +53,11 @@ Transmitter.prototype.send = function(dataObj, cb) {
         }
     }
 
-    this._socket.write(dataObj, errLogger);
+    try {
+        this._socket.write(dataObj, errLogger);
+    } catch(e) {
+        Logger.error(e.message);
+    }
 };
 
 /**
