@@ -9,3 +9,5 @@
  my old buggy logger implementation.
 
  * Using the 'exception' event to specify errors from the streams since 'error' unpipes the streams.
+
+ * The c++ id pool worked fine on the tests but segfaults when concurrency hits.

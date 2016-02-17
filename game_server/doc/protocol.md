@@ -8,16 +8,15 @@ Client Request:
 ```
 "{
     "command": <command_string>,
-    "params": <command_params_array>,
-    "correlation": <uuid>
+    "params": <command_params_array>
 }\0"
 ```
 Server Response:
 ```
 "{
+    "correlation": <request command>,
     "error": <error_string>,
-    "data": <data_object>,
-    "correlation": <request uuid>
+    "data": <data_object>
 }\0"
 ```
 
@@ -29,3 +28,4 @@ Server Response:
  * If there is an error there can't be data and vise versa.
 
  * Multiplexing will be accounted later on.
+
