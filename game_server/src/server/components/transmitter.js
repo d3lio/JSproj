@@ -25,7 +25,11 @@ Transmitter.prototype._write = function(chunk, encoding, next) {
         }
     }
 
-    this._socket.write(chunk, errLogger);
+    try {
+        this._socket.write(chunk, errLogger);
+    } catch(e) {
+        Logger.error(e.message);
+    }
 };
 
 /**

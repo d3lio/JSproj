@@ -28,14 +28,14 @@ hostname.value = window.location.hostname;
     );
 
     var lab = new Labyrinth();
-    lab.init(scene);
+    //lab.init(scene);
 
 
     var client = null;
 
     var loader = new THREE.FontLoader();
     loader.load('/js/fonts/helvetiker_regular.typeface.js', function(font) {
-        client = new Client(scene, controls, lab, font);
+        client = new Client(scene, controls, lab, font, render);
 
         pointerLock(controls, client, clock);
 
@@ -65,11 +65,11 @@ hostname.value = window.location.hostname;
     clock.start();
 
 
-    (function render() {
+    function render() {
         requestAnimationFrame(render);
 
         controls.calculate(lab);
 
         renderer.render(scene, camera);
-    }());
+    };
 });

@@ -1,4 +1,4 @@
-function Client(scene, controls, lab, font) {
+function Client(scene, controls, lab, font, renderLoop) {
     if (!(this instanceof Client)) {
         return new Client(controls);
     }
@@ -20,6 +20,7 @@ function Client(scene, controls, lab, font) {
     this._controls = controls;
     this._lab = lab;
     this._font = font;
+    this._renderLoop = renderLoop;
 
     this._players = [];
     this._username = "";
@@ -94,6 +95,8 @@ Client.prototype._onMessage = function(event) {
     switch (message.correlation) {
         case Client.CommandConstants.INIT:
             self._lab.map = message.data.terrain;
+            self._lab.init(self._scene);
+            this._renderLoop();
             self._players = message.data.players;
 
             self._players.forEach(function(player, i) {

@@ -30,10 +30,12 @@ function Game() {
         [1, 0, 0, 1, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 1, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0, 1, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1],
     ];
+
+    this._genMaze();
 
     this.players = [];
     this.tagCounter = process.hrtime();
@@ -141,6 +143,72 @@ Game.prototype._tagIt = function(player, otherPlayer) {
         return true;
     }
     return false;
+};
+
+Game.prototype._genMaze = function() {
+    var a = [];
+
+    var WIDTH = 15;
+    var HEIGHT = 15;
+
+    init(a);
+    gen(a, 6, 6);
+    fix(a);
+    this.map = a;
+
+    function init(maze) {
+        for (var i = 0; i < HEIGHT; i++) {
+            maze.push([]);
+            for (var j = 0; j < WIDTH; j++) {
+                maze[i][j] = 1;
+            }
+        }
+    }
+
+    function gen(maze, i, j) {
+        maze[i][j] = 0;
+
+        var used = [0, 0, 0, 0];
+
+        while (used[0] + used[1] + used[2] + used[3] !== 4) {
+            do {
+                var r = Math.floor(Math.random()*4);
+            } while (used[r]);
+
+            switch (r) {
+                case 0:
+                    if (i-2 > -1 && j > -1 && j < WIDTH && maze[i-2][j] === 1 && maze[i-1][j+1] === 1 && maze[i-1][j-1] === 1) {
+                        gen(maze, i-1, j);
+                    }
+                    break;
+                case 1:
+                    if (i+2 < HEIGHT && j > -1 && j < WIDTH && maze[i+2][j] === 1 && maze[i+1][j+1] === 1 && maze[i+1][j-1] === 1) {
+                        gen(maze, i+1, j);
+                    }
+                    break;
+                case 2:
+                    if (j-2 > -1 && i > -1 && i < HEIGHT && maze[i][j-2] === 1 && maze[i+1][j-1] === 1 && maze[i-1][j-1] === 1) {
+                        gen(maze, i, j-1);
+                    }
+                    break;
+                case 3:
+                    if (j+2 < WIDTH && i > -1 && i < HEIGHT && maze[i][j+2] === 1 && maze[i+1][j+1] === 1 && maze[i+1][j-1] === 1) {
+                        gen(maze, i, j+1);
+                    }
+                    break;
+            }
+
+            used[r] = 1;
+        }
+    }
+
+    function fix(maze) {
+        for (var i = 0; i < 5; i++) {
+            maze
+                [Math.floor(Math.random()*(HEIGHT-2)) + 1]
+                [Math.floor(Math.random()*(WIDTH-2)) + 1] = 0;
+        }
+    }
 };
 
 module.exports = Game;
